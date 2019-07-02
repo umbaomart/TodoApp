@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // styleText Function
     let todos_true_status = document.querySelectorAll('.status');
-    let todo_value, todo_el;
+    let todo_value, todo_el, parent_el;
     let form_check_inputs = document.querySelectorAll('.form-check-input');
 
     todos_true_status.forEach(todo_element => {
@@ -78,9 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
     form_check_inputs.forEach( check_input => {
         check_input.addEventListener('click', function(e) {
             let checkInput = e.target;
+            parent_el = checkInput.parentElement.parentElement;
             todo_el = e.target.nextElementSibling;
             todo_value = todo_el.id;
-            // console.log(todo_value);
+            // console.log(parent_el);
 
             if (checkInput.checked == true) {
                 $.ajax({
@@ -92,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     , success: function(e) {
                         todo_el.classList.add('status');
-                        console.log(e);
+                        parent_el.parentElement.appendChild(parent_el);
+                        // console.log(e);
                     }
                 });
                 
@@ -106,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     , success: function(e) {
                         todo_el.classList.remove('status');
+                        parent_el.parentElement.insertBefore(parent_el, parent_el.parentElement.firstChild);
                         // console.log('FALSE');
                         console.log(e);
                         // if (d) {
