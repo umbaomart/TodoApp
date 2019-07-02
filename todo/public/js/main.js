@@ -65,4 +65,66 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     });
     
+    // styleText Function
+    let todos_true_status = document.querySelectorAll('.status');
+    let todo_value, todo_el;
+    let form_check_inputs = document.querySelectorAll('.form-check-input');
+
+    todos_true_status.forEach(todo_element => {
+        todo_element.parentElement.children[0].checked = true;
+    })
+
+
+    form_check_inputs.forEach( check_input => {
+        check_input.addEventListener('click', function(e) {
+            let checkInput = e.target;
+            todo_el = e.target.nextElementSibling;
+            todo_value = todo_el.id;
+            // console.log(todo_value);
+
+            if (checkInput.checked == true) {
+                $.ajax({
+                    url: 'ajaxControllers/status.php'
+                    , type: 'POST'
+                    , data: {
+                        action: true,
+                        todo_val: todo_value
+                    }
+                    , success: function(e) {
+                        todo_el.classList.add('status');
+                        console.log(e);
+                    }
+                });
+                
+            } else {
+                $.ajax({
+                    url: 'ajaxControllers/status.php'
+                    , type: 'POST'
+                    , data: {
+                        action: false,
+                        todo_val: todo_value
+                    }
+                    , success: function(e) {
+                        todo_el.classList.remove('status');
+                        // console.log('FALSE');
+                        console.log(e);
+                        // if (d) {
+                            // todo_el.style.textDecoration = 'line-through';
+                            // todo_el.style.textDecoration = 'none';
+                        // }
+                    }
+                });
+                
+            }
+
+
+            // todo_value = e.target.nextElementSibling;
+            // todo_value.style.fontSize = '40px';
+            // console.log(todo_value);
+        });
+    });
+
+    
+
 });
+

@@ -19,8 +19,8 @@
                 <?php foreach($data['todos'] as $todo) : ?>
                     <div class="container border rounded pt-3 pb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label ml-3" for="inlineCheckbox1"> <?php echo $todo->TODO; ?> </label>
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option">
+                            <label id="<?php echo $todo->ID; ?>" class="form-check-label ml-3 <?php echo ($todo->STATUS == 1) ? 'status' : ''; ?>" for="inlineCheckbox1"> <?php echo $todo->TODO; ?> </label>
                             <input id="todo_id" type="hidden" value="<?php echo $todo->ID; ?>">
                         </div>
                         <div class="float-right icon mb-1">
